@@ -57,7 +57,7 @@ public extension RealityGeometry {
     ///   - end: Desired vector direction
     /// - Returns: Quaternion to be applied to the start to get the end.
     fileprivate static func vectorQuatDiff(start: SIMD3<Float>, end: SIMD3<Float>) -> simd_quatf {
-        let angle = acos(simd.dot(start, end))
+        let angle = acos(min(1, max(-1, simd.dot(start, end))))
         let axis = simd.normalize(simd.cross(start, end))
         return simd_quatf(angle: angle, axis: axis)
     }
